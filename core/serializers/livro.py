@@ -1,10 +1,5 @@
 from rest_framework.serializers import ModelSerializer
 from core.models import Livro
-from core.serializers import (
-    LivroListSerializer,
-    LivroRetrieveSerializer,
-    LivroSerializer,
-)
 
 class LivroSerializer(ModelSerializer):
     class Meta:
