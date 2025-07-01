@@ -49,12 +49,24 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
     )
+    
+class ItensCompraInline(admin.TabularInline):
+    model = models.ItensCompra
+    extra = 1 
 
+
+@admin.register(models.Compra)
+class CompraAdmin(admin.ModelAdmin):
+    list_display = ("usuario", "status")
+    search_fields = ("usuario", "status")
+    list_filter = ("usuario", "status")
+    ordering = ("usuario", "status")
+    list_per_page = 25
+    inlines = [ItensCompraInline]
 
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Categoria)
 admin.site.register(models.Editora)
 admin.site.register(models.Autor)
 admin.site.register(models.Livro)
-admin.site.register(models.Compra)
 admin.site.register(models.ItensCompra)
