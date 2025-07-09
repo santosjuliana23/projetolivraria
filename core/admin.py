@@ -55,17 +55,19 @@ class ItensCompraInline(admin.TabularInline):
     model = ItensCompra
     extra = 1 
 
-
 @admin.register(Compra)
 class CompraAdmin(admin.ModelAdmin):
-    list_display = ("usuario", "status")
-    search_fields = ("usuario", "status")
-    list_filter = ("usuario", "status")
-    ordering = ("usuario", "status")
-    list_per_page = 25
+    list_display = ('usuario', 'status', 'total_formatado')  
+    ordering = ('usuario', 'status')
+    list_per_page = 10
     inlines = [ItensCompraInline]
+    readonly_fields = ("total_formatado",)  
 
-
+    @admin.display(description="Total")
+    def total_formatado(self, obj):
+        """Exibe R$ 123,45 em vez de 123.45."""
+        return f"R$ {obj.total:.2f}"
+    
 @admin.register(Autor)
 class AutorAdmin(admin.ModelAdmin):
     list_display = ('nome', 'email')
