@@ -14,7 +14,9 @@ class Compra(models.Model):
 
     usuario = models.ForeignKey(User, on_delete=models.PROTECT, related_name="compras")
     status = models.IntegerField(choices=StatusCompra.choices,  default=StatusCompra.CARRINHO)
-
+    
+    data = models.DateTimeField(auto_now_add=True)
+      
     def __str__(self):
         return f'Compra {self.id} - {self.get_status_display()} - {self.usuario.email}'
     @property

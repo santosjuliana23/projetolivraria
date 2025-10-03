@@ -1,4 +1,4 @@
-from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField, CurrentUserDefault, HiddenField, ValidationError
+from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField, CurrentUserDefault, HiddenField, ValidationError, DateTimeField
 
 from core.models import Compra, ItensCompra
 
@@ -47,12 +47,13 @@ class CompraSerializer(ModelSerializer):
     total = SerializerMethodField()
     status = CharField(source='get_status_display', read_only=True)
     usuario = CharField(source='usuario.e-mail', read_only=True) 
+    data = DateTimeField(read_only=True)
     itens = ItensCompraSerializer(many=True, read_only=True)
     depth = 1
 
     class Meta:
         model = Compra
-        fields = ('id', 'usuario', 'status', 'total', 'itens')
+        fields = ('id', 'usuario', 'status', 'total', 'itens', 'data')
         read_only_fields = ['id', 'usuario', 'status']
         
     def get_total(self, obj):
